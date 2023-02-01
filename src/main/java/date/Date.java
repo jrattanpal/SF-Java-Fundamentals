@@ -3,14 +3,24 @@ package date;
 import java.time.LocalDate;
 
 public class Date {
-  int day;
-  int month;
-  int year;
+  // private in Java "accessible only within the enclosing top-level
+  // curly braces surrounding the declaration
+  // Java allows classes (types generally) to be declared INSIDE
+  // other classes / types
+//  class InnerClass {
+//    private int value;
+//    // value is fully accessible inside any
+//    // code of the Date class
+//    // code here has access to day, month, and year
+//  }
+  private /*final*/ int day;
+  private /*final*/ int month;
+  private /*final*/ int year;
 
   // default constructor ONLY if Zero coded constructors:
-  public Date() {
-
-  }
+//  public Date() {
+//
+//  }
 //  public Date() {
 //    this.day = 1;
 //    this.month = 1;
@@ -30,6 +40,24 @@ public class Date {
     this.month = month;
     this.year = year;
   }
+
+  public static int getDay(Date d) {
+    return d.day;
+  }
+
+  public static Date withDay(Date d, int day) {
+    if (day < 1 || day > 31) {
+      throw new IllegalArgumentException("Bad day");
+    }
+    return new Date(day, d.month, d.year);
+  }
+
+  public static Date tomorrow(Date d) {
+    int tentativeDay = d.day + 1;
+    //if (tentativeDay > days in month...)
+      // start next month -- did we wrap around a year!?
+    return new Date(d.day + 1, d.month, d.year);
+  }
 }
 
 class UseDate {
@@ -46,12 +74,17 @@ class UseDate {
     int theDay = 4;
     Date d = new Date(theDay + 2, 2, 2023);
     System.out.println("day is " + d);
-    System.out.println("day is " + d.day);
-    System.out.println("month is " + d.month);
+//    System.out.println("day is " + d.day);
+    System.out.println("day is " + Date.getDay(d));
+    Date tomorrow = Date.withDay(d, Date.getDay(d) + 1);
+    System.out.println("day is " + Date.getDay(d));
+    System.out.println("tomorrow day is " + Date.getDay(tomorrow));
+
+//    System.out.println("month is " + d.month);
 //    Date d1 = new Date(0, 0, 0);
 
-    d.day = 1024;
-    System.out.println("day is " + d.day);
+//    d.day = 1024;
+//    System.out.println("day is " + d.day);
 
 
 // NOPE, no accessible constructor in modern APIS
