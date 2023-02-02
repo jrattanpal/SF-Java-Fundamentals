@@ -16,11 +16,14 @@ public class Date {
 
 //  public static int getDay(Date d) {
 //  public /*static*/ int getDay(Date this) {
-  public int getDay(Date this) {
-    return this.day;
+//  public int getDay(/*@WithinThreeYears Date this*/) { // implicit this...
+  public int getDay() { // implicit this...
+//    return this.day;
+    return day;
   }
 
 //  public static void setDay(Date d, int day) {
+//  public void setDay(Date this, int day) {
   public void setDay(Date this, int day) {
     if (!isValidDate(day, this.month, this.year)) {
       throw new IllegalArgumentException("Bad day");
@@ -34,7 +37,7 @@ public class Date {
   }
 
 //  public static void tomorrow(Date d) {
-  public void tomorrow(Date this) {
+  public void tomorrow(/*Date this*/) { // this is usually implicit...
     int tentativeDay = this.day + 1;
     //if (tentativeDay > days in month...)
     this.day++;
@@ -44,6 +47,8 @@ public class Date {
       { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
   public static int daysInMonth(int month, int year) {
+//    Date d = new Date(1,1,1);
+//    d.day = 99;
     if (month < 1 || month > 12) {
       throw new IllegalArgumentException("Bad month!");
     }
@@ -67,5 +72,7 @@ class UseDate {
     d.setDay(d.getDay() + 1);
     d.tomorrow();
     System.out.println("day is " + d.getDay());
+//    d = null;
+//    d.getDay(); // crashes without calling the method
   }
 }
