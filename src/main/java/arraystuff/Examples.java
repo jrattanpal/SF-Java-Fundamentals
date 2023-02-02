@@ -3,6 +3,14 @@ package arraystuff;
 import java.util.Arrays;
 
 public class Examples {
+//  public static void showAll(int [] values) {
+  // varargs must be the LAST item in the param list
+  public static void showAll(int ... values) {
+    for (int v : values) {
+      System.out.println("+-+> " + v);
+    }
+  }
+
   public static void main(String[] args) {
 //    int [] ia = new int[3]; // three zero values
     int [] ia = {99, 98, 97};
@@ -29,5 +37,39 @@ public class Examples {
     System.out.println(iaa.length);
     System.out.println(iaa[0].length);
     System.out.println(iaa[1].length);
+
+    int counter = 0;
+    // tests in Java must be real boolean expressions
+    // not concept of "truthy/falsy"
+    while (counter < ia.length) {
+      System.out.println("> " + ia[counter]);
+      counter++;
+    }
+    System.out.println("--------------");
+    for (int c2 = 0; c2 < ia.length; c2++) {
+      int x = 99;
+      System.out.println("> " + ia[c2]);
+    }
+//    System.out.println(c2); // c2 now out of scope
+    int res = counter + 1; // expression must be assigned
+    int r2 = counter++; // "statement expression" need not be assigned
+    counter++; // "statement expression" need not be assigned
+    System.out.println("--------------");
+    counter = 0;
+    do {
+      System.out.println(">>> " + ia[counter++]);
+    } while (counter < ia.length);
+    System.out.println("--------------");
+    for (int x : ia) { // works for arrays and all "Iterables"
+      // this does NOT give access to any "index" notion
+      System.out.println("+++ " + x);
+    }
+    System.out.println("--------------");
+    showAll(ia);
+    System.out.println("--------------");
+//    showAll({9,8,7}); // NOPE!!!
+    showAll(new int[]{9,8,7});
+    System.out.println("--------------");
+    showAll(1,2,3,4);
   }
 }
