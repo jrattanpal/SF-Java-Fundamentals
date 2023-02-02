@@ -60,6 +60,10 @@ public class Date {
     // Java % is REMAINDER NOT MOD
     return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
   }
+
+  public String toString() {
+    return String.format("I'm a date with %d/%d/%d", day, month, year);
+  }
 }
 
 class UseDate {
